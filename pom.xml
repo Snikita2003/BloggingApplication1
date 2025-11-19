@@ -15,7 +15,7 @@
 	<name>blog-app-apis</name>
 	<description>This is project for creating email web service</description>
 	<properties>
-		<java.version>20</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 
@@ -146,11 +146,13 @@ starter-validation -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				
 				<configuration>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
+							  
 						</exclude>
 					</excludes>
 				</configuration>

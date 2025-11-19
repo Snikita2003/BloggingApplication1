@@ -38,7 +38,7 @@ public class User implements UserDetails{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private int userId;
 	
 	@Column(name ="user_name", nullable = false , length = 30)
 	private String name;
@@ -59,11 +59,19 @@ public class User implements UserDetails{
 	// e.g: User class ka jo table bnega 'user' naam se bnega and iska 'id' field foreign key jaisa kam karega
 	// similaryly for 'Role' table
 	
+//	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//	@JoinTable(name ="user_role",
+//	joinColumns = @JoinColumn(name = "user", referencedColumnName = "id"),
+//	inverseJoinColumns = @JoinColumn(name= "role", referencedColumnName = "id"))
+//	private Set<Role> roles = new HashSet<>();
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name ="user_role",
-	joinColumns = @JoinColumn(name = "user", referencedColumnName = "id"),
-	inverseJoinColumns = @JoinColumn(name= "role", referencedColumnName = "id"))
+	@JoinTable(
+	    name = "user_role",
+	    joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "userId"),
+	    inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
+	)
 	private Set<Role> roles = new HashSet<>();
+
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

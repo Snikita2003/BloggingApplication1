@@ -6,6 +6,7 @@ import java.util.Set;
 
 import com.blog.entities.Role;
 
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
@@ -20,7 +21,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserDto {
-	
+	@Id
 	private int id;
 	
 	// @NotEmpty : @NotNull + @NotBlank
