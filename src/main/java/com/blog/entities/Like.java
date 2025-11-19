@@ -1,5 +1,7 @@
 package com.blog.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,10 +30,12 @@ public class Like {
 	private Integer id;
 	
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "post_id", nullable = false)  
 	private Post post;
 	
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "user_id", nullable = false)  
 	private User user;
 	

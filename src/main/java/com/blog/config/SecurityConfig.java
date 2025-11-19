@@ -60,6 +60,7 @@ public class SecurityConfig {
 		.authorizeHttpRequests()
 		.requestMatchers(PUBLIC_URLS).permitAll()
 		.requestMatchers(HttpMethod.GET).permitAll()
+		.requestMatchers(HttpMethod.POST).permitAll()
 		.anyRequest()
 		.authenticated()
 		.and()

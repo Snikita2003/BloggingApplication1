@@ -11,6 +11,7 @@ import com.blog.repositories.PostRepo;
 import com.blog.repositories.UserRepo;
 import com.blog.repositories.likeRepo;
 import com.blog.service.LikeService;
+import com.blog.service.NotificationService;
 
 import io.swagger.v3.oas.annotations.servers.Server;
 
@@ -23,6 +24,9 @@ public class LikeServiceImple implements LikeService {
 	private PostRepo postRepo;
 	@Autowired
 	private likeRepo likeRepo;
+	@Autowired
+	private  NotificationService notificationService;
+	
 	
 	@Override
 	public Like likePost(Integer userId, Integer postId) {
@@ -36,11 +40,19 @@ public class LikeServiceImple implements LikeService {
 		Post post= this.postRepo.findById(postId)
 				.orElseThrow(()-> new ResourceNotFoundException("Post", "Post Not found :", postId));
 		
+		
 		Like like=new Like();
 		like.setUser(user);
 		like.setPost(post);
-		this.likeRepo.save(like);
 		
+		
+		this.likeRepo.save(like);
+		// Send notification (avoid self notifications)
+		Integer postOwnerId = post.getUser().getUserId();
+	    if (!postOwnerId.equals(userId)) {
+	        notificationService.sendLikeNotification(userId, postOwnerId, postId);
+	    }
+        
 		return like;
 
 	}
